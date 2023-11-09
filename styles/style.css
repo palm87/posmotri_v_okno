@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
+
 html {
   block-size: 100%;
 }
@@ -232,27 +236,29 @@ fieldset {
   color: rgba(255, 255, 255, 0.70);
   font-family: Fira Sans Condensed;
   font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   width: 225px;
   background-color: transparent;
+  border: none;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
-
 }
 
 .search-form__textfield:active {
-  color: rgba(255, 255, 255, 0.70);
-  font-family: Fira Sans Condensed;
-  font-size: 18px;
-  font-weight: 400;
-  width: 225px;
-  background-color: transparent;
-  outline: 1px solid #fff;;
-  
-
+ outline: 1px solid #fff;
 }
+
+
+ 
+.search-form__label:has(:focus-visible){
+  outline:1px solid #fff;
+  outline-offset: 1px;
+}
+
+
+
+
+
+
 
 .search-form__pseudo-checkbox {
  width: 19px;
