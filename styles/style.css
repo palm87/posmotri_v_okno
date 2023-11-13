@@ -4,9 +4,10 @@
   box-sizing: border-box;
 }
 
-*:focus {
+*:focus, :focus-visible {
   outline: none;
 }
+
 
 html {
   block-size: 100%;
@@ -44,143 +45,13 @@ ol {
   list-style: none;
 }
 
-.page {
 
 
+fieldset {
+  border: none;
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-  align-items: end;;
-  width: 1140px;
-  height: 534px;
-  gap: 30px;
 
-}
-
-.content__list {
-  height: 534px;
-  overflow: auto;
-
-}
-
-.result {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.search-form {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.content__details {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 28px;
-}
-
-.result__video-container {
-  position: relative;
-  width: 711px;
-  
-
-
-}
-
-.result__video {
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-
-}
-
-.content__list {
-  position: relative;
-  display:flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.content__video-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: start;
-
-}
-.content__video-card-thumbnail {
-  width: 194px;
-  height: 103px;
-}
-
-.content__video-card-description-container {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 50%;
-
-}
-.search-form__fieldset-title {
-  color: #FFF;
-  font-family: Fira Sans Condensed;
-  font-size: 18px;
-  
-  font-weight: 400;
-  line-height: normal;
-}
-
-.title {
-  color: #545050;
-  font-family: Oswald;
-  font-size: 75px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 94%; /* 70.5px */
-  text-transform: uppercase;
-}
-
-.content__accent {
-  color: #FFF;
-  font-family: Oswald;
-  font-size: 75px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 94%;
-  text-transform: uppercase;
-}
-
-.content__card-link {
-  color:  #FFF;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.content__video-card-title {
-  color: #FFF;
-  font-family: Oswald;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 100%; /* 30px */
-  text-transform: uppercase;
-}
-
-.content__video-card-description {
-  color: #FFF;
-  font-family: Fira Sans Condensed;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16.2px; /* 90% */
-}
 
 .visually-hidden {
   position: absolute;
@@ -192,32 +63,143 @@ ol {
   white-space: nowrap;
 }
 
+
+/* весь контент на странице*/
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: end;;
+  width: 1140px;
+  height: 534px;
+  gap: 30px;
+
+}
+
+/* секция с видео и поиском */
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/*главный контейнер с видео */
+.result__video-container {
+  position: relative;
+  width: 711px;
+}
+
+/* главное видео, доступное для проигрывания */
+.result__video {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* панель с поиском - строка поиска, чекбоксы, кнопка */
 .search-form {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 40px;
   align-items: end;
+}
+
+/* общий класс для наборов полей - поиск города и чекбоксы */
+.search-form__fieldset {
 
 }
 
-fieldset {
+/* поле поиска города */
+.search-form__textfield {
+  color: rgba(255, 255, 255, 0.70);
+  font-family: Fira Sans Condensed;
+  font-size: 18px;
+  min-width: 225px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-left: none;
+  border-right:none;
+}
+
+.search-form__textfield:active {
   border: none;
+  border: 1px solid #FFF;
 }
 
+
+/* Заголовки строки поиска и наборов чекбоксов - Город и Время суток */
+.search-form__fieldset-title {
+  color: #FFF;
+  font-family: Fira Sans Condensed;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* подписи элементов форм  --- Формами удобно пользоваться, когда мы понимаем назначение каждого элемента. 
+Для этого необходимо подписывать каждый элемент. И вот как раз для этих целей служит элемент
+Помимо текстовой подписи создаётся программная связь между подписью и элементом формы. 
+Это сильно облегчает взаимодействие с формами незрячим или слабовидящим пользователям, использующим скринридеры. 
+Когда фокус попадает на элемент формы, с которым связан label, 
+скринридер автоматически зачитывает текст подписи, и пользователь понимает, 
+какие данные необходимо ввести или какие данные представлены в текущем элементе формы.
+Чтобы связать <label> с элементом формы можно пойти двумя путями:
+Задаём элементу формы атрибут id. Такое же значение задаём атрибуту for тега <label>.
+Оборачиваем элемент формы в тег <label>. В этом случае связь создаётся автоматически и нет необходимости в атрибутах id и for.*/
 .search-form__label {
   display: flex;
   flex-direction: row;
   width: fit-content;
   gap: 5px;
+  position: relative;
 }
 
+.search-form__label:has(:focus-visible){
+  outline:1px solid #fff;
+  outline-offset: 2px;
+}
+
+/* список чекбоксов для выбора времени суток */
 .search-form__checkbox-list {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
 
-.button {
+/* чекбокс, который скрываем */
+.search-form__checkbox {
+
+}
+
+
+/* чекбокс, который отрисовываем */
+.search-form__pseudo-checkbox{
+  width: 19px;
+  height: 19px;
+  border: 1px solid #fff;
+  cursor: pointer;
+ }
+
+ .search-form__pseudo-checkbox:hover{
+  text-decoration: underline;
+ }
+
+
+ .search-form__checkbox:checked + span {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #000000;
+  background-color: #fcfbfb;
+  border-color: #000; 
+ }
+
+ /* подпись чекбокса Утро-День-Ночь*/
+ .search-form__label-text{
+  cursor: pointer;
+ }
+
+ /* общий класс для двух кнопок - Найти и Показать еще */
+ .button {
   background-color: transparent;
   border: 1px solid #FFF;
   color: #FFF;
@@ -227,31 +209,152 @@ fieldset {
   width: 100%;
   height: 34px;
   cursor: pointer;
-  
-  
+}
+
+.button:active {
+  background-color: #545050;
+}
+
+.button:hover {
+  text-decoration: underline;
+}
+
+/* кнопка для поиска видео по заданным параметрам */
+.search-form__submit-button{
+
+}
+
+.search-form__submit-button:focus-visible{
+  outline:1px double #fff;
+  outline-offset: 1px;
+  border: 1px solid #FFF;;
+ 
+}
+
+/* правая секция с заголовком и другими видео */
+.content__details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+/* заголовок секции Посмотри в окно */
+.title {
+  color: #545050;
+  font-family: Oswald;
+  font-size: 75px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 94%; /* 70.5px */
+  text-transform: uppercase;
+}
+
+/* акцент в заголовке - выделенное белым "ПО-" */
+.content__accent {
+  color: #FFF;
+  font-family: Oswald;
+  font-size: 75px;
+  font-weight: 700;
+  line-height: 94%;
+  text-transform: uppercase;
+}
+
+/* список остальных видео */
+.content__list {
+  min-height: 534px;
+  overflow: auto;
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 
-.search-form__textfield {
-  color: rgba(255, 255, 255, 0.70);
+.content__list-item:hover {
+  text-decoration: underline;
+ }
+
+ .content__list-item:active {
+  background-color: #545050;
+ }
+
+/* пункт списка остальных видео. вкелючающий в себя карточку и ссылку */
+.content__list-item {
+  margin:2px;
+}
+
+/* стиль ссылки из карточки с дополнительным видео */
+.content__card-link {
+  display: block;
+  color:  #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 2px;
+  padding: 2px;
+}
+
+/* текущее выбранное видео */
+.content__card-link_current {
+  background-color: #545050;
+}
+
+.content__card-link:focus {
+  outline: none;
+}
+
+.content__card-link:focus-visible {
+  outline: 1px solid #fff;
+}
+
+
+/* карточка с заголовком, видео и описанием */
+.content__video-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+
+}
+
+/* контейнер с текстом карточки Заголовок + Описание */
+.content__video-card-description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 50%;
+
+}
+
+/* заголовок карточки */
+.content__video-card-title {
+  color: #FFF;
+  font-family: Oswald;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 100%; /* 30px */
+  text-transform: uppercase;
+}
+
+/* описание карточки */
+.content__video-card-description {
+  color: #FFF;
   font-family: Fira Sans Condensed;
   font-size: 18px;
-  width: 225px;
-  background-color: transparent;
-  border: none;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+  font-weight: 400;
+  line-height: 16.2px; /* 90% */
+}
+/* обложка видео из карточки */
+.content__video-card-thumbnail {
+  width: 194px;
+  height: 103px;
 }
 
-.search-form__textfield:active {
- outline: 1px solid #fff;
-}
-
-
- 
-.search-form__label:has(:focus-visible){
-  outline:1px solid #fff;
-  outline-offset: 1px;
+/* кнока подгрузки карточек с видео Показать еще*/
+.more-button {
+  width: 100%;
 }
 
 
@@ -260,10 +363,10 @@ fieldset {
 
 
 
-.search-form__pseudo-checkbox {
- width: 19px;
- height: 19px;
- border: 1px solid #fff;
- cursor: pointer;
 
-}
+
+
+
+
+
+
