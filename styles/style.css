@@ -127,7 +127,7 @@ fieldset {
 Чтобы такое реализовать, можно применить хитрую комбинацию псевдоклассов — :has(:focus-visible). */
 .search-form__textfield {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Fira Sans Condensed;
+  font-family: "Fira Sans Condensed", sans-serif;
   font-size: 18px;
   min-width: 225px;
   background-color: transparent;
@@ -155,7 +155,7 @@ fieldset {
 /* Заголовки строки поиска и наборов чекбоксов - Город и Время суток */
 .search-form__fieldset-title {
   color: #fff;
-  font-family: Fira Sans Condensed;
+  font-family: "Fira Sans Condensed", sans-serif;
   font-size: 18px;
   font-weight: 400;
 }
@@ -226,7 +226,7 @@ fieldset {
   background-color: transparent;
   border: 1px solid #fff;
   color: #fff;
-  font-family: Fira Sans Condensed;
+  font-family: "Fira Sans Condensed", sans-serif;
   font-size: 18px;
   font-weight: 700;
   width: 100%;
@@ -267,7 +267,7 @@ fieldset {
 /* заголовок секции Посмотри в окно */
 .title {
   color: #fff;
-  font-family: Oswald;
+  font-family: "Oswald", sans-serif;
   font-size: 75px;
   font-style: normal;
   font-weight: 700;
@@ -278,7 +278,7 @@ fieldset {
 /* акцент в заголовке - выделенное ерым "ПО-" */
 .content__accent {
   color: #545050;
-  font-family: Oswald;
+  font-family: "Oswald", sans-serif;
   font-size: 75px;
   font-weight: 700;
   line-height: 94%;
@@ -364,7 +364,7 @@ fieldset {
 /* заголовок карточки */
 .content__video-card-title {
   color: #fff;
-  font-family: Oswald;
+  font-family: "Oswald", sans-serif;
   font-size: 30px;
   font-weight: 700;
   line-height: 100%; /* 30px */
@@ -374,7 +374,7 @@ fieldset {
 /* описание карточки */
 .content__video-card-description {
   color: #fff;
-  font-family: Fira Sans Condensed;
+  font-family: "Fira Sans Condensed", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 16.2px; /* 90% */
