@@ -135,6 +135,8 @@ fieldset {
   border-left: none;
   border-right: none;
   appearance: none;
+  padding-inline: 0px;
+  padding-block: 0px;
 }
 
 .search-form__label:has(:focus-visible) {
@@ -235,7 +237,6 @@ fieldset {
 .button:focus-visible {
   outline: 1px double #fff;
   outline-offset: 1px;
-  border: 1px solid #fff;
 }
 
 .button:hover {
@@ -295,7 +296,7 @@ fieldset {
 }
 
 .content__list-item {
-  height: 103px;
+  height: fit-content;
 }
 
 /* пункт списка остальных видео. вкелючающий в себя карточку и ссылку */
@@ -358,7 +359,6 @@ fieldset {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
 }
 
 /* заголовок карточки */
@@ -383,9 +383,10 @@ fieldset {
 /* обложка видео из карточки */
 /* Задать размеры .content__video-card-thumbnail и замостить в них изображение. */
 .content__video-card-thumbnail {
-  max-width: 194px;
-  max-height: 103px;
+  min-width: 194px;
+  height: 103px;
   object-fit: cover;
+  object-position: center;
 }
 
 /* кнока подгрузки карточек с видео Показать еще*/
