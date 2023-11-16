@@ -4,26 +4,13 @@
   box-sizing: border-box;
 }
 
-*:focus, :focus-visible {
+*:focus,
+:focus-visible {
   outline: none;
 }
 
-
 html {
   block-size: 100%;
-}
-
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  inline-size: 1200px;
-  block-size: 100%;
-  margin: auto;
-  color: #fff;
-  font-family: 'Fira Sans Condensed', sans-serif;
-  font-size: 18px;
-  background-color: #1b1919;
 }
 
 h1,
@@ -45,13 +32,10 @@ ol {
   list-style: none;
 }
 
-
-
+/* Сбросьте border у fieldset. */
 fieldset {
   border: none;
 }
-
-
 
 .visually-hidden {
   position: absolute;
@@ -63,16 +47,30 @@ fieldset {
   white-space: nowrap;
 }
 
+/* Расположить блок .content посередине .page. */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inline-size: 1200px;
+  block-size: 100%;
+  margin: auto;
+  color: #fff;
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-size: 18px;
+  background-color: #1b1919;
+}
 
 /* весь контент на странице*/
+/* 
+Расположить элементы .content в строку, прижав к низу вертикальной оси.
+Задать горизонтальные размеры .content и отступы между его элементами */
 .content {
   display: flex;
   flex-direction: row;
-  align-items: end;;
-  width: 1140px;
-  height: 534px;
+  align-items: end;
+  min-width: 1140px;
   gap: 30px;
-
 }
 
 /* секция с видео и поиском */
@@ -84,82 +82,97 @@ fieldset {
 }
 
 /*главный контейнер с видео */
+/* Задать размеры контейнеру .result__video-container и добавить отступ снизу.
+Замостить видео в этот контейнер так, чтобы оно занимало всю ширину и высоту и не выходило за пределы. */
 .result__video-container {
   position: relative;
   width: 711px;
+  height: 386px;
 }
 
 /* главное видео, доступное для проигрывания */
 .result__video {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
 /* панель с поиском - строка поиска, чекбоксы, кнопка */
+/* Расположить элементы .search-form в строку и 
+пропорционально распределить между ними свободное пространство, 
+прижать их к началу контейнера. */
 .search-form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 40px;
-  align-items: end;
+  align-items: center;
 }
 
 /* общий класс для наборов полей - поиск города и чекбоксы */
 .search-form__fieldset {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 5px;
 }
 
 /* поле поиска города */
+/* Текстовому полю нужно задать свойство appearance: none;. Так в разных браузерах будут нужные вам стили. Это трюк. */
+
+/* 
+У этого элемента нужно сбросить обводку в состоянии фокуса и вместо этого делать границу у лейбла, который его окружает. 
+Лейбл должен получать границу только когда у поля находится в состоянии focus-visible, но не focus. 
+Чтобы такое реализовать, можно применить хитрую комбинацию псевдоклассов — :has(:focus-visible). */
 .search-form__textfield {
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.7);
   font-family: Fira Sans Condensed;
   font-size: 18px;
   min-width: 225px;
   background-color: transparent;
   border: 1px solid #fff;
   border-left: none;
-  border-right:none;
+  border-right: none;
+  appearance: none;
 }
 
+.search-form__label:has(:focus-visible) {
+  outline: 1px solid #fff;
+  outline-offset: 1px;
+}
+
+/* Обратите внимание, что подчёркивание должно появляться при наведении на любую точку лейбла, а не только на сам текст */
+.search-form__label:not(:has(.search-form__textfield)):hover {
+  text-decoration: underline;
+}
 .search-form__textfield:active {
-  border: none;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
 }
-
 
 /* Заголовки строки поиска и наборов чекбоксов - Город и Время суток */
 .search-form__fieldset-title {
-  color: #FFF;
+  color: #fff;
   font-family: Fira Sans Condensed;
   font-size: 18px;
   font-weight: 400;
 }
 
-/* подписи элементов форм  --- Формами удобно пользоваться, когда мы понимаем назначение каждого элемента. 
-Для этого необходимо подписывать каждый элемент. И вот как раз для этих целей служит элемент
-Помимо текстовой подписи создаётся программная связь между подписью и элементом формы. 
-Это сильно облегчает взаимодействие с формами незрячим или слабовидящим пользователям, использующим скринридеры. 
-Когда фокус попадает на элемент формы, с которым связан label, 
-скринридер автоматически зачитывает текст подписи, и пользователь понимает, 
-какие данные необходимо ввести или какие данные представлены в текущем элементе формы.
-Чтобы связать <label> с элементом формы можно пойти двумя путями:
-Задаём элементу формы атрибут id. Такое же значение задаём атрибуту for тега <label>.
-Оборачиваем элемент формы в тег <label>. В этом случае связь создаётся автоматически и нет необходимости в атрибутах id и for.*/
+/* подписи элементов форм */
+
+/* Вам нужно расставить элементы внутри .search-form__label в линию. 
+И при этом подогнать ширину контейнера под размер внутренних элементов. 
+Для этого пригодится правило width: fit-content;. */
 .search-form__label {
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: fit-content;
   gap: 5px;
-  position: relative;
-}
-
-.search-form__label:has(:focus-visible){
-  outline:1px solid #fff;
-  outline-offset: 2px;
 }
 
 /* список чекбоксов для выбора времени суток */
+/* Обёртка .search-form__checkbox-list создана специально для того, чтобы выстроить чекбоксы в линию. */
 .search-form__checkbox-list {
   display: flex;
   flex-direction: row;
@@ -167,42 +180,50 @@ fieldset {
 }
 
 /* чекбокс, который скрываем */
-.search-form__checkbox {
-
-}
-
+/* .search-form__checkbox {
+} */
 
 /* чекбокс, который отрисовываем */
-.search-form__pseudo-checkbox{
+/* Когда будете рисовать .search-form__pseudo-checkbox, учитывайте, что в нём появится элемент, который должен оказаться точно по центру. 
+Если присмотритесь к макету, заметите, что внутренний квадрат включённого чекбокса чуть меньше самого чекбокса. 
+Это мы сверстаем отдельно следующим шагом. */
+.search-form__pseudo-checkbox {
   width: 19px;
   height: 19px;
   border: 1px solid #fff;
   cursor: pointer;
- }
+}
 
- .search-form__pseudo-checkbox:hover{
-  text-decoration: underline;
- }
+/* Если вы применяли псевдокласс :has() для текстового инпута, здесь тоже будет работать это правило. 
+ Вам не придётся прописывать отдельно состояние focus и focus-visible для чекбокса. 
+ Но если вы пошли другим путём, задумайтесь, как добиться того, чтобы состояние focus не создавало обводку у родительского элемента, 
+ а состояние focus-visible создавало. */
+.search-form__label:has(.search-form__checkbox:focus-visible) {
+  outline: 1px solid #fff;
+}
 
+/* На макете при нажатии чекбокса внутри появляется квадрат. Он чуть меньше чекбокса. 
+ Мы предлагаем вам реализовать его псевдоэлементом для .search-form__pseudo-checkbox. 
+ У вас получится непростая комбинация селекторов «псевдоэлемент для первого соседа зажатого чекбокса». */
+.search-form__checkbox:checked + .search-form__pseudo-checkbox::before {
+  display: block;
+  content: "";
+  width: 17px;
+  height: 17px;
+  border: 1px solid #1b1919;
+  background-color: #fff;
+}
 
- .search-form__checkbox:checked + span {
-  width: 15px;
-  height: 15px;
-  border: 2px solid #000000;
-  background-color: #fcfbfb;
-  border-color: #000; 
- }
-
- /* подпись чекбокса Утро-День-Ночь*/
- .search-form__label-text{
+/* подпись чекбокса Утро-День-Ночь*/
+.search-form__label-text {
   cursor: pointer;
- }
+}
 
- /* общий класс для двух кнопок - Найти и Показать еще */
- .button {
+/* общий класс для двух кнопок - Найти и Показать еще */
+.button {
   background-color: transparent;
-  border: 1px solid #FFF;
-  color: #FFF;
+  border: 1px solid #fff;
+  color: #fff;
   font-family: Fira Sans Condensed;
   font-size: 18px;
   font-weight: 700;
@@ -211,39 +232,40 @@ fieldset {
   cursor: pointer;
 }
 
-.button:active {
-  background-color: #545050;
+.button:focus-visible {
+  outline: 1px double #fff;
+  outline-offset: 1px;
+  border: 1px solid #fff;
 }
 
 .button:hover {
   text-decoration: underline;
 }
 
+.button:active {
+  background-color: #545050;
+}
+
 /* кнопка для поиска видео по заданным параметрам */
-.search-form__submit-button{
-
+.search-form__submit-button {
+  align-self: end;
 }
 
-.search-form__submit-button:focus-visible{
-  outline:1px double #fff;
-  outline-offset: 1px;
-  border: 1px solid #FFF;;
- 
-}
-
-/* правая секция с заголовком и другими видео */
+/* правая секция с заголовком и карточками других видео */
+/* Растянуть .content__details во всю доступную ширину и высоту контейнера 
+и добавить отступы между заголовком и зоной с карточками. */
 .content__details {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 28px;
+  gap: 26px;
 }
 
 /* заголовок секции Посмотри в окно */
 .title {
-  color: #545050;
+  color: #fff;
   font-family: Oswald;
   font-size: 75px;
   font-style: normal;
@@ -252,9 +274,9 @@ fieldset {
   text-transform: uppercase;
 }
 
-/* акцент в заголовке - выделенное белым "ПО-" */
+/* акцент в заголовке - выделенное ерым "ПО-" */
 .content__accent {
-  color: #FFF;
+  color: #545050;
   font-family: Oswald;
   font-size: 75px;
   font-weight: 700;
@@ -263,44 +285,45 @@ fieldset {
 }
 
 /* список остальных видео */
+/* Установить вертикальный размер для .content__list и добавить скролл при переполнении. */
 .content__list {
-  min-height: 534px;
-  overflow: auto;
+  overflow-y: auto;
   position: relative;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  gap: 30px;
+  height: 298px;
 }
 
-
-.content__list-item:hover {
-  text-decoration: underline;
- }
-
- .content__list-item:active {
-  background-color: #545050;
- }
+.content__list-item {
+  height: 103px;
+}
 
 /* пункт списка остальных видео. вкелючающий в себя карточку и ссылку */
-.content__list-item {
-  margin:2px;
+/* Создать вертикальные отступы между элементами .content__list-item (у всех, кроме последнего). */
+.content__list-item:not(:last-child) {
+  margin-bottom: 30px;
 }
 
 /* стиль ссылки из карточки с дополнительным видео */
+/* Убрать дефолтное подчёркивание и заменить цвет текста у ссылки */
+/* чтобы фон применился, ссылку .content__card-link нужно сделать блочным элементом. */
 .content__card-link {
   display: block;
-  color:  #FFF;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
-  padding: 2px;
 }
 
 /* текущее выбранное видео */
+/* Первая карточка должна быть активной, а при переключении активная карточка должна выделяться. 
+Это поведение уже написано на JavaScript. Но в CSS должны оказаться соответствующие стили для селектора .content__card-link_current. 
+Есть одна особенность: чтобы фон применился, ссылку .content__card-link нужно сделать блочным элементом. */
 .content__card-link_current {
   background-color: #545050;
 }
 
+/* Чтобы состояние :focus-visible работало корректно, придётся сбросить обводку на состоянии :focus. */
 .content__card-link:focus {
   outline: none;
 }
@@ -309,28 +332,38 @@ fieldset {
   outline: 1px solid #fff;
 }
 
+.content__card-link:hover {
+  text-decoration: underline;
+}
+
+.content__card-link:active {
+  background-color: #545050;
+}
 
 /* карточка с заголовком, видео и описанием */
+/* Расположить элементы внутри контейнера .content__video-card в строку, 
+прижав к началу контейнера по дополнительной оси. */
 .content__video-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
-
+  margin: 2px;
 }
 
 /* контейнер с текстом карточки Заголовок + Описание */
+/* Сделать так, чтобы .content__video-card-description-container 
+занимал всё доступное пространство, не занятое картинкой. */
 .content__video-card-description-container {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 50%;
-
+  width: 100%;
 }
 
 /* заголовок карточки */
 .content__video-card-title {
-  color: #FFF;
+  color: #fff;
   font-family: Oswald;
   font-size: 30px;
   font-weight: 700;
@@ -340,33 +373,22 @@ fieldset {
 
 /* описание карточки */
 .content__video-card-description {
-  color: #FFF;
+  color: #fff;
   font-family: Fira Sans Condensed;
   font-size: 18px;
   font-weight: 400;
   line-height: 16.2px; /* 90% */
 }
+
 /* обложка видео из карточки */
+/* Задать размеры .content__video-card-thumbnail и замостить в них изображение. */
 .content__video-card-thumbnail {
-  width: 194px;
-  height: 103px;
+  max-width: 194px;
+  max-height: 103px;
+  object-fit: cover;
 }
 
 /* кнока подгрузки карточек с видео Показать еще*/
 .more-button {
   width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
